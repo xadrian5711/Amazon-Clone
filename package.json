@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "Build an interactive restaurant menu where users can browse items, filter by category, add items to a cart, and see their order total.",
   "main": "main.js",
-  
+  "scripts": {
+    "dev": "vite"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mikelnorth/mtech_day8_project.git"
@@ -16,15 +18,9 @@
     "url": "https://github.com/mikelnorth/mtech_day8_project/issues"
   },
   "homepage": "https://github.com/mikelnorth/mtech_day8_project#readme",
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
-  },
-  
   "dependencies": {
-    "@tailwindcss/vite": "^4.1.18",
-    "tailwindcss": "^4.1.18",
+    "@tailwindcss/vite": "^4.2.0",
+    "tailwindcss": "^4.2.0",
     "vite": "^7.3.1"
   }
 }

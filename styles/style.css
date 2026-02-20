@@ -1,1 +1,39 @@
 @import "tailwindcss";
+
+/* Custom Amazon Colors */
+.text-amazon-link { color: #007185; }
+.text-amazon-price { color: #0f1111; }
+.bg-amazon-btn { background-color: #ffd814; }
+.bg-amazon-btn:hover { background-color: #f7ca00; }
+.text-prime { color: #00a8e1; }
+
+
+body {
+            font-family: "Arial", sans-serif;
+            background-color: #ffffff;
+        }
+
+        /* Line clamping for product titles */
+        .line-clamp-4 {
+            display: -webkit-box;
+            
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* Price formatting */
+        .price-symbol {
+            font-size: 0.75rem;
+            position: relative;
+            top: -0.5em;
+        }
+        .price-whole {
+            font-size: 1.75rem;
+            font-weight: 500;
+            line-height: 1;
+        }
+        .price-fraction {
+            font-size: 0.75rem;
+            position: relative;
+            top: -0.5em;
+        }
