@@ -62,7 +62,7 @@ function calculateCartTotals(items){
     items.forEach(item => {
         const priceInCents = Math.round(item.price * 100);
 
-        subtoalcents += priceInCents * item.quantity;
+        subtotalCents += priceInCents * item.quantity;
     });
 
     const taxCents = Math.round(subtotalCents * taxRate);
@@ -74,6 +74,7 @@ function calculateCartTotals(items){
         total: (totalCents / 100).toFixed(2)
     };
 }
+
 
 // --- ADJUST QUANTITY LOGIC ---
 function updateQuantity(productId, changeAmount) {
@@ -103,3 +104,6 @@ function updateQuantity(productId, changeAmount) {
         }
     }
 }
+
+
+
