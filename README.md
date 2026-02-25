@@ -1,9 +1,4 @@
-# Restaurant Menu & Ordering System
-
-Build an interactive restaurant menu where users can browse items, filter by category, add items to a cart, and see their order total.
-
-**Make it yours.** Pick a restaurant concept — taco truck, sushi bar, coffee shop, pizza place, bakery, whatever you want. Name it. Theme it. Own it.
-
+AMAZON CLONE
 ---
 
 ## What You're Starting With
