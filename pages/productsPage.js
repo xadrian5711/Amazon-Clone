@@ -41,7 +41,7 @@ function createProductCard (product) {
 
             <div class="text-xs text-gray-600 mb-2">${product.description}</div>
             
-            <button onclick = "addToCart(${product.id})" class="add-to-cart-btn mt-auto w-full bg-[#FFD814] hover:bg-[#F7CA00] py-1.5 rounded-full text-sm font-medium border border-[#FCD200] shadow-sm transition-colors"
+            <button id="add-btn-${product.id}" onclick = "addToCart(${product.id})" class="add-to-cart-btn mt-auto w-full bg-[#FFD814] hover:bg-[#F7CA00] py-1.5 rounded-full text-sm font-medium border border-[#FCD200] shadow-sm transition-colors"
                 data-product-id="${product.id}">
                 Add to Cart
             </button>

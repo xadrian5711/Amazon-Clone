@@ -9,25 +9,27 @@ function createCartCheckout(item) {
             <h2 class="text-xl font-bold">${item.name}</h2>
             <p class="text-gray-600 mt-2">${item.description || ''}</p>
             <p class="text-lg font-bold mt-2">$${item.price.toFixed(2)}</p>
-            <div class="mt-4 flex items-center gap-4">
-                <span class="text-gray-700 font-medium bg-gray-100 px-3 py-1 rounded">Qty: ${item.quantity}</span>
+            <div class="mt-4 flex items-center gap-2">
+                <button onclick="updateQuantity(${item.id}, -1)" class="bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded font-bold transition-colors">-</button>
+                <span class="text-gray-700 font-medium px-4 py-1 bg-gray-50 border border-gray-200 rounded">${item.quantity}</span>
+                <button onclick="updateQuantity(${item.id}, 1)" class="bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded font-bold transition-colors">+</button>
             </div>
         </div>
     </div>
     `;
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+// 2. We put the drawing logic into a reusable function
+function renderCart() {
     const flexContainer = document.getElementById('activeCart');
-    
-    // 2. Pull the cart directly from localStorage
+    // If we aren't on the checkout page, stop running this code
+    if (!flexContainer) return; 
+
     const savedCart = JSON.parse(localStorage.getItem('cart')) || [];
     
-    // 3. Check if the cart has items, then render them
     if (savedCart.length > 0) {
         flexContainer.innerHTML = savedCart.map(item => createCartCheckout(item)).join("");
     } else {
-        // Show an empty cart message if there is nothing in it
         flexContainer.innerHTML = `
             <div class="py-12 text-center">
                 <h2 class="text-2xl font-bold text-gray-900">Your Amazon Cart is empty.</h2>
@@ -36,23 +38,23 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
     }
 
-    // 4. Update the subtotal box on the right
+    // Update the subtotal box on the right
     updateCheckoutTotals(savedCart);
+}
+
+// 3. Run it once when the page first loads
+document.addEventListener('DOMContentLoaded', () => {
+    renderCart();
 });
 
-// Function to handle the math for the subtotal box
+// 4. Handle the math for the subtotal box
 function updateCheckoutTotals(cartItems) {
-    // We are using the calculateCartTotals function you built in cartLogic.js!
     const totals = calculateCartTotals(cartItems);
-    
-    // Count total items (e.g., if you have 2 basketballs and 1 shoe = 3 items)
     const totalQuantity = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
-    // Target the spans we created in Step 1
     const itemCountElement = document.getElementById('checkout-item-count');
     const subtotalElement = document.getElementById('checkout-subtotal');
 
-    // Update the text on the screen
     if (itemCountElement) itemCountElement.innerText = totalQuantity;
     if (subtotalElement) subtotalElement.innerText = `$${totals.subtotal}`;
 }
