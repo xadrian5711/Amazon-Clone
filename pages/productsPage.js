@@ -60,17 +60,53 @@ function createProductCard (product) {
 
 
 
-document.addEventListener('DOMContentLoaded', () => {
+// 1. Create a reusable function to draw the products
+function renderProducts(productsToDisplay) {
     const gridContainer = document.getElementById('product-grid');
-    
-     if (typeof products !== 'undefined') {
-        gridContainer.innerHTML = products.map(product => createProductCard(product)).join(" ");
+    if (!gridContainer) return;
 
+    // If we have products, draw them. Otherwise, show a "Not Found" message!
+    if (productsToDisplay.length > 0) {
+        gridContainer.innerHTML = productsToDisplay.map(product => createProductCard(product)).join(" ");
+    } else {
+        gridContainer.innerHTML = `<p class="col-span-full text-center text-lg font-bold text-gray-500 py-12">No products match your search.</p>`;
+    }
+
+    // Re-load the Lucide star icons for the new cards
+    if (typeof lucide !== 'undefined') {
         lucide.createIcons();
-        
-     } else {
-        console.error('Products data not found.')
-     }
+    }
+}
 
-})    
+// 2. Run our logic when the page loads
+document.addEventListener('DOMContentLoaded', () => {
+    
+    // A. Draw all products initially
+    if (typeof products !== 'undefined') {
+        renderProducts(products);
+    } else {
+        console.error('Products data not found.');
+    }
 
+    // B. Search Bar Logic (Using Linear Search!)
+    const searchBar = document.getElementById('default-search');
+    
+    if (searchBar) {
+        // The 'input' event fires every single time a key is typed or deleted
+        searchBar.addEventListener('input', (event) => {
+            // Grab what the user typed and make it lowercase
+            const searchTerm = event.target.value.toLowerCase();
+            
+            // Filter the array: Keep it if the name OR description includes the search term
+            const filteredProducts = products.filter(product => {
+                const nameMatches = product.name.toLowerCase().includes(searchTerm);
+                const descMatches = product.description.toLowerCase().includes(searchTerm);
+                
+                return nameMatches || descMatches; 
+            });
+
+            // Re-draw the screen with ONLY the filtered items!
+            renderProducts(filteredProducts);
+        });
+    }
+});
