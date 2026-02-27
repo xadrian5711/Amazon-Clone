@@ -54,7 +54,66 @@ function updateCheckoutTotals(cartItems) {
 
     const itemCountElement = document.getElementById('checkout-item-count');
     const subtotalElement = document.getElementById('checkout-subtotal');
+    const taxElement = document.getElementById('checkout-tax');
+    const totalElement = document.getElementById('checkout-total');
 
     if (itemCountElement) itemCountElement.innerText = totalQuantity;
     if (subtotalElement) subtotalElement.innerText = `$${totals.subtotal}`;
+    if (taxElement) taxElement.innerText= `$${totals.tax}`;
+    if (totalElement) totalElement.innerText = `$${totals.total}`;
 }
+
+// --- MODAL & CHECKOUT LOGIC ---
+document.addEventListener('DOMContentLoaded', () => {
+    const proceedBtn = document.getElementById('proceed-btn');
+    const modal = document.getElementById('checkout-modal');
+    const closeModalBtn = document.getElementById('close-modal-btn');
+    const confirmOrderBtn = document.getElementById('confirm-order-btn');
+    const modalTotal = document.getElementById('modal-total');
+    const checkoutTotal = document.getElementById('checkout-total');
+
+    // 1. OPEN MODAL: When "Proceed to checkout" is clicked
+    if (proceedBtn) {
+        proceedBtn.addEventListener('click', () => {
+            // Check if cart is empty first
+            const currentCart = JSON.parse(localStorage.getItem('cart')) || [];
+            if (currentCart.length === 0) {
+                alert("Your cart is empty!");
+                return;
+            }
+
+            // Copy the total price from the summary box into the modal
+            modalTotal.innerText = checkoutTotal.innerText;
+            
+            // Show the modal by removing the 'hidden' class
+            modal.classList.remove('hidden');
+        });
+    }
+
+    // 2. CLOSE MODAL: When "Cancel" is clicked
+    if (closeModalBtn) {
+        closeModalBtn.addEventListener('click', () => {
+            // Hide the modal by adding the 'hidden' class back
+            modal.classList.add('hidden');
+        });
+    }
+
+    // 3. CONFIRM ORDER: When "Confirm" is clicked
+    if (confirmOrderBtn) {
+        confirmOrderBtn.addEventListener('click', () => {
+            // 1. Empty the cart in memory and local storage
+            cart = []; 
+            localStorage.removeItem('cart');
+            
+            // 2. Hide the modal
+            modal.classList.add('hidden');
+            
+            // 3. Re-render the page to show the empty cart message
+            renderCart();
+            updateCartCount(); // Reset the red bubble to 0
+            
+            // 4. Show a success message!
+            alert("Success! Your order has been placed.");
+        });
+    }
+});

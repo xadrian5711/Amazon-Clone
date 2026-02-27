@@ -54,7 +54,7 @@ const button = document.getElementById(`add-btn-${productId}`);
 
 
 // TAX RATE LOGIC
-taxRate = 0.07;
+const taxRate = 0.07;
 
 function calculateCartTotals(items){
     let subtotalCents = 0;

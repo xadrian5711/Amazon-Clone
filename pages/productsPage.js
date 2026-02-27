@@ -17,6 +17,9 @@ function getStarRatingHTML(rating) {
 
 
 function createProductCard (product) {
+    const priceString = product.price.toFixed(2);
+
+    const [whole, fraction] = priceString.split('.');
     
     return `
     <div class="border border-gray-200 rounded-lg p-4 flex flex-col h-full bg-white hover:bg-gray-50 transition-colors relative group">
@@ -35,8 +38,8 @@ function createProductCard (product) {
 
             <div class="flex items-start text-amazon-price mb-1">
                 <span class="price-symbol">$</span>
-                <span class="price-whole">${product.price.whole}</span>
-                <span class="price-fraction">${product.price.fraction}</span>
+                <span class="price-whole text-2xl font-bold">${whole}</span>
+                <span class="price-fraction text-xs font-semibold mt-1">${fraction}</span>
             </div>
 
             <div class="text-xs text-gray-600 mb-2">${product.description}</div>
